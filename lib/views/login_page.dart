@@ -26,6 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _login() async {
+   final messenger= ScaffoldMessenger.of(context);
+   final navigator= Navigator.of(context);
     if (_formKey.currentState!.validate()) {
       bool login = await AuthController.instance.login(
         _usernameController.text,
@@ -34,8 +36,9 @@ class _LoginPageState extends State<LoginPage> {
 
       if(login){
         // Navegação
+        Navigator.of(context).pushReplacementNamed('/dashboard');
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(
+        messenger.showSnackBar(
           customSnackBar(
             message: 'As crendencias informadas estão incorretas',
             backgroundColor: Color(0xffff6b6b),
@@ -92,8 +95,13 @@ class _LoginPageState extends State<LoginPage> {
                   if (password == null || password.isEmpty) {
                     return 'Preencha o campo senha corretamente';
                   }
+                  
                   return null;
                 },
+                onFieldSubmitted: (_){
+                _login();
+              },
+             
               ),
               const SizedBox(height: 16.0),
               AppButton(text: 'Entrar', onPressed: _login ),

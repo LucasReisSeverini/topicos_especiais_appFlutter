@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:multi_app2/shared/app_constants.dart';
 import 'package:multi_app2/shared/app_theme.dart';
+import 'package:multi_app2/views/dashboard_page.dart';
 import 'package:multi_app2/views/home_page.dart';
 import 'package:multi_app2/views/login_page.dart';
+import 'package:multi_app2/views/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,8 +24,10 @@ class MyApp extends StatelessWidget{
       debugShowCheckedModeBanner: false, //tira debug da tela do chrome
       initialRoute: '/',
       routes: {
-        '/':(context) => HomePage(),
-        '/login': (context) => LoginPage()
+        '/':(context) => SplashScreen(),
+        '/home':(context) => HomePage(),
+        '/login': (context) => LoginPage(),
+        '/dashboard': (context)=> DashboardPage()
       },
 
     );
