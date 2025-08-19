@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:multi_app2/shared/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,4 +37,41 @@ class AuthController {
     }
 
   }
+
+  Future<bool> verifyToken() async{
+    _sharedPreferences = await SharedPreferences.getInstance();
+    String? token = _sharedPreferences.getString('accessToken');
+
+    print(token);
+
+    if(token == null){
+      return false;
+    }
+
+    
+
+
+    try{
+      print(JwtDecoder.getExpirationDate(token));
+      print(JwtDecoder.getRemainingTime(token));
+      print(JwtDecoder.isExpired(token));
+      print(JwtDecoder.decode(token));
+      return !JwtDecoder.isExpired(token);
+    }catch(e){
+      return false;
+    }
+
+
+
+    
+  }
+
+  Future<bool> Logout() async{
+    _sharedPreferences = await SharedPreferences.getInstance();
+    await _sharedPreferences.remove('accessToken');
+    await _sharedPreferences.clear();
+    return true;
+  }
+
 }
+
