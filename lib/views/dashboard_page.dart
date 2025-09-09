@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:multi_app2/components/app_bar.dart';
 import 'package:multi_app2/controllers/auth_controller.dart';
-import 'package:multi_app2/controllers/user_controller.dart';
-import 'package:multi_app2/models/user.dart';
+// import 'package:multi_app2/controllers/user_controller.dart';
+// import 'package:multi_app2/models/user.dart';
 import 'package:multi_app2/providers/user_notifier.dart';
 import 'package:multi_app2/shared/app_constants.dart';
+import 'package:multi_app2/views/dashboard_widgets.dart/greeting_widget.dart';
 import 'package:multi_app2/views/profile_page.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +62,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 //navegue para tela de perfil
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ProfilePage(user: _loggedUser!)
+                    builder: (context) => ProfilePage(user: _loggedUser)
                     )
 
                 );
@@ -92,9 +93,14 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         )
         )
-      ],
-      
-      )
+      ], 
+    ),
+    body: SingleChildScrollView(
+      padding: EdgeInsets.all(16.0),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+      children: [GreetingWidget()],),
+    ),
+
     );
   }
 }
