@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:multi_app2/shared/app_constants.dart';
@@ -22,8 +20,8 @@ class AuthController {
         }
       )
     );
-    print(response.body);
-    print(json.decode(response.body)['accessToken']);
+   // print(response.body);
+   // print(json.decode(response.body)['accessToken']);
 
     await _sharedPreferences.setInt('userId', json.decode(response.body)['id']);
 
@@ -44,18 +42,17 @@ class AuthController {
 
     print(token);
 
+
     if(token == null){
       return false;
-    }
-
-    
+    }    
 
 
     try{
-      print(JwtDecoder.getExpirationDate(token));
-      print(JwtDecoder.getRemainingTime(token));
-      print(JwtDecoder.isExpired(token));
-      print(JwtDecoder.decode(token));
+     // print(JwtDecoder.getExpirationDate(token));
+     // print(JwtDecoder.getRemainingTime(token));
+     // print(JwtDecoder.isExpired(token));
+     // print(JwtDecoder.decode(token));
       return !JwtDecoder.isExpired(token);
     }catch(e){
       return false;

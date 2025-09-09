@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:multi_app2/providers/user_notifier.dart';
 import 'package:multi_app2/shared/app_constants.dart';
 import 'package:multi_app2/shared/app_theme.dart';
 import 'package:multi_app2/views/dashboard_page.dart';
 import 'package:multi_app2/views/home_page.dart';
 import 'package:multi_app2/views/login_page.dart';
 import 'package:multi_app2/views/splash_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserNotifier())
+      ],
+      child: MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget{
