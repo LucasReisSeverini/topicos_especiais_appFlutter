@@ -3,8 +3,10 @@ import 'package:multi_app2/components/app_bar.dart';
 import 'package:multi_app2/controllers/auth_controller.dart';
 import 'package:multi_app2/controllers/user_controller.dart';
 import 'package:multi_app2/models/user.dart';
+import 'package:multi_app2/providers/user_notifier.dart';
 import 'package:multi_app2/shared/app_constants.dart';
 import 'package:multi_app2/views/profile_page.dart';
+import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -15,26 +17,28 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
 
-  User? _loggedUser;
+  //User? _loggedUser;
 
   @override
   initState(){
-    _getLoggedUser();
     super.initState();
+    //_getLoggedUser();
+    context.read<UserNotifier>().loadUser();
+
   }
 
-  Future<void> _getLoggedUser() async{
-    User user = await UserController.instance.loggedUser;
-    if(mounted){
-      setState(() {
-        _loggedUser = user;
-      });
-    }
-  }
+  // Future<void> _getLoggedUser() async{
+  //   User user = await UserController.instance.loggedUser;
+  //   if(mounted){
+  //     setState(() {
+  //       _loggedUser = user;
+  //     });
+  //   }
+  // }
 
   @override
   void dispose(){
-    _loggedUser = null;
+    //_loggedUser = null;
     super.dispose();
   }
 
@@ -42,6 +46,9 @@ class _DashboardPageState extends State<DashboardPage> {
   
   @override
   Widget build(BuildContext context) {
+
+    final _loggedUser = context.watch<UserNotifier?>()?.user;
+
     return Scaffold(
       appBar: appBar(context: context,
       title: AppConstants.appName,

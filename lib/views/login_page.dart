@@ -30,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _login() async {
    final messenger = ScaffoldMessenger.of(context);
    final navigator = Navigator.of(context);
+   final currentContext = context.read<UserNotifier>();
     if (_formKey.currentState!.validate()) {
       bool login = await AuthController.instance.login(
         _usernameController.text,
@@ -38,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if(login){
         // Navegação
-        context.read<UserNotifier>().loadUser();
+        currentContext.loadUser();
         navigator.pushReplacementNamed('/dashboard');
       }else{
         messenger.showSnackBar(
